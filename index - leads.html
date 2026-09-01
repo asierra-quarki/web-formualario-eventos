@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eventos | Legalnova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lg-bg: #202020;
+    --lg-bg-alt: #1a1a1a;
+    --lg-surface: #1c1d20;
+    --lg-border: #34353a;
+    --lg-text: #a0a0a0;
+    --lg-heading: #ffffff;
+    --lg-accent: #08c486;
+    --lg-accent-dark: #06a271;
+    --lg-footer-bg: #2c2c2c;
+    --font-heading: "Montserrat", "Open Sans", Arial, sans-serif;
+    --font-body: "Open Sans", Arial, sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    background: var(--lg-bg);
+    color: var(--lg-text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  a{ color: inherit; text-decoration: none; }
+
+  img{ max-width: 100%; display: block; }
+
+  h1, h2{ font-family: var(--font-heading); color: var(--lg-heading); }
+
+  ::selection{ background: var(--lg-accent); color: #06110c; }
+
+  /* ---------- Header ---------- */
+
+  .site-header{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--lg-bg);
+    border-bottom: 1px solid var(--lg-border);
+  }
+
+  .header-inner{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .header-logo img{ width: 150px; height: auto; }
+
+  /* ---------- Nav ---------- */
+
+  .main-nav > ul{
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .main-nav a{
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--lg-text);
+    padding: 6px 0;
+    transition: color .15s ease;
+  }
+
+  .main-nav a:hover{ color: var(--lg-heading); }
+
+  .main-nav a[aria-current="page"]{
+    color: var(--lg-heading);
+    border-bottom: 2px solid var(--lg-accent);
+  }
+
+  .burger{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid var(--lg-border);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .burger span{
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--lg-heading);
+    transition: transform .25s ease, opacity .2s ease;
+  }
+
+  .burger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  .burger.open span:nth-child(2){ opacity: 0; }
+  .burger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 900px){
+    .main-nav{ display: none; }
+    .header-actions .lang-switch{ display: none; }
+    .burger{ display: flex; }
+
+    .main-nav.mobile-open > ul{ gap: 4px; }
+    .main-nav.mobile-open a{
+      display: block;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--lg-border);
+    }
+    .main-nav.mobile-open a[aria-current="page"]{
+      border-bottom: 1px solid var(--lg-accent);
+    }
+
+    .main-nav.mobile-open{
+      display: flex;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--lg-bg);
+      border-bottom: 1px solid var(--lg-border);
+      padding: 10px 24px 20px;
+    }
+    .main-nav.mobile-open > ul{
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+    .main-nav.mobile-open .dropdown{
+      position: static;
+      display: none;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      padding-left: 10px;
+      margin-top: 4px;
+    }
+    .main-nav.mobile-open .has-dropdown.open .dropdown{ display: flex; }
+  }
+
+  /* ---------- Main / form section ---------- */
+
+  main{
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 80px 24px 100px;
+  }
+
+  .form-intro{ margin-bottom: 40px; text-align: center; }
+
+  .form-intro h1{
+    font-size: 38px;
+    line-height: 1.25;
+    font-weight: 600;
+    margin: 0 0 10px;
+  }
+
+  .form-intro h1 .accent{ color: var(--lg-accent); }
+
+  .form-intro p{ margin: 0; color: var(--lg-text); }
+
+  #mc_embed_signup{
+    border-top: 1px solid var(--lg-border);
+    padding-top: 32px;
+  }
+
+  #mc_embed_signup h2{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+
+  #mc_embed_signup .indicates-required{
+    font-size: 12px;
+    color: var(--lg-text);
+    margin-bottom: 28px;
+  }
+
+  #mc_embed_signup .asterisk{ color: var(--lg-accent); }
+
+  .mc-field-group{ margin-bottom: 20px; }
+
+  .mc-field-group label{
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--lg-heading);
+    margin-bottom: 7px;
+  }
+
+  .field-wrap{ position: relative; }
+
+  .mc-field-group input{
+    width: 100%;
+    padding: 12px 2px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    border-radius: 0;
+    color: var(--lg-heading);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+  }
+
+  .mc-field-group input::placeholder{ color: #6b6b6b; }
+
+  /* green underline that fills left-to-right on focus, over the white base line */
+  .field-wrap::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: var(--lg-accent);
+    transition: width .3s ease;
+  }
+
+  .field-wrap:focus-within::after{ width: 100%; }
+
+  #mce-responses{ margin: 4px 0; }
+  #mce-error-response{ color: #e06464; font-size: 13px; }
+  #mce-success-response{ color: var(--lg-accent); font-size: 13px; }
+
+  .clear{ clear: both; }
+
+  #mc-embedded-subscribe{
+    width: 100%;
+    margin-top: 6px;
+    padding: 13px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    color: #ffffff;
+    background-color: transparent;
+    background-image: linear-gradient(to top, var(--lg-bg) 50%, #ffffff 50%);
+    background-repeat: no-repeat;
+    background-size: 100% 200%;
+    background-position: center bottom;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-position .4s cubic-bezier(0.215, 0.61, 0.355, 1),
+                color .4s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  #mc-embedded-subscribe:hover{
+    background-position: center top;
+    color: var(--lg-bg);
+    font-weight: 800;
+  }
+
+  .form-footnote{
+    font-size: 12px;
+    color: #6b6b6b;
+    margin-top: 14px;
+  }
+
+  /* ---------- Footer ---------- */
+
+  .site-footer{
+    background: var(--lg-footer-bg);
+    color: #bbc2ce;
+    font-size: 15px;
+    margin-top: 60px;
+  }
+
+  .site-footer a{ color: inherit; }
+
+  .footer-inner{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* recognition strip */
+
+  .footer-top{ padding: 56px 0; text-align: center; }
+  .footer-top .footer-inner{ max-width: 1440px; }
+
+  .footer-tagline{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+  .footer-tagline svg{ width: 50px; height: 49px; flex-shrink: 0; }
+  .footer-tagline p{
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.3;
+    color: var(--lg-heading);
+  }
+
+  .footer-press{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 310px));
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    gap: 44px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .footer-press img{
+    width: 100%;
+    max-width: 310px;
+    height: auto;
+    aspect-ratio: 310 / 132;
+    object-fit: contain;
+    opacity: .92;
+    transition: opacity .2s ease;
+  }
+  .footer-press a:hover img{ opacity: 1; }
+
+  /* link columns + contact */
+
+  .footer-main{ border-top: 1px solid #5f5f5f; padding: 44px 0; text-align: left; }
+  .footer-main .footer-inner{
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 32px;
+  }
+
+  .footer-col h5{
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--lg-heading);
+    margin: 0 0 16px;
+    text-align: left;
+  }
+
+  .footer-col a{
+    display: block;
+    font-size: 15px;
+    color: #bbc2ce;
+    margin: 0 0 12px;
+    transition: color .15s ease;
+    width: fit-content;
+  }
+  .footer-col a:hover{ color: var(--lg-accent); }
+
+  .footer-contact p{ margin: 0 0 12px; font-size: 15px; }
+
+  .footer-social{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+  }
+  .footer-social a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .footer-social svg{ width: 15px; height: 15px; fill: var(--lg-heading); }
+  .footer-social a:hover{ background: var(--lg-accent); border-color: var(--lg-accent); }
+  .footer-social a:hover svg{ fill: #0b0b0b; }
+
+  /* bottom bar */
+
+  .footer-bottom{ border-top: 1px solid #5f5f5f; padding: 22px 0; }
+  .footer-bottom .footer-inner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px 24px;
+    font-size: 13px;
+    color: var(--lg-text);
+    text-align: center;
+  }
+  .footer-bottom p{ margin: 0; }
+  .footer-bottom a:hover{ color: var(--lg-accent); }
+
+  @media (max-width: 860px){
+    .footer-main .footer-inner{
+      grid-template-columns: 1fr 1fr;
+      row-gap: 36px;
+    }
+    .footer-press{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 560px){
+    .footer-tagline{ flex-direction: column; gap: 12px; }
+    .footer-tagline p{ font-size: 21px; }
+    .footer-press{ grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 30px 24px; }
+    .footer-main{ text-align: center; }
+    .footer-main .footer-inner{ grid-template-columns: 1fr; }
+    .footer-col h5{ text-align: center; }
+    .footer-col a{ margin: 0 auto 12px; }
+    .footer-contact p{ text-align: center; }
+    .footer-social{ justify-content: center; }
+    .footer-bottom .footer-inner{ flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="header-logo" href="https://legalnova.co" aria-label="Legalnova">
+      <img src="https://legalnova.co/wp-content/uploads/2025/11/Logo-legalnova.svg" alt="Logo legalnova" width="150" height="41">
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Formularios">
+      <ul>
+        <li><a href="index - leads.html" aria-current="page">Eventos</a></li>
+        <li><a href="index - Social.html">Redes Sociales</a></li>
+      </ul>
+    </nav>
+
+    <button class="burger" id="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <div class="form-intro">
+    <h1><span class="accent">Hey!</span> Nos alegra que estés aquí</h1>
+    <p>Completa el formulario y nos pondremos en contacto contigo.</p>
+  </div>
+
+  <div id="mc_embed_signup">
+    <form action="https://legalnova.us22.list-manage.com/subscribe/post?u=84f2c4798081c56bcbc35077f&amp;id=4c7c4367e0&amp;f_id=00b2dde1f0"
+          method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+      <div id="mc_embed_signup_scroll">
+        <h2>Formulario de Eventos</h2>
+        <div class="indicates-required"><span class="asterisk">*</span> indica campo obligatorio</div>
+
+        <div class="mc-field-group">
+          <label for="mce-EMAIL">Correo electrónico <span class="asterisk">*</span></label>
+          <div class="field-wrap">
+            <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" autocomplete="email" placeholder="tucorreo@empresa.com" required>
+          </div>
+        </div>
+
+        <div class="mc-field-group">
+          <label for="mce-FNAME">Nombre <span class="asterisk">*</span></label>
+          <div class="field-wrap">
+            <input type="text" name="FNAME" class="required text" id="mce-FNAME" autocomplete="name" placeholder="Tu nombre" required>
+          </div>
+        </div>
+
+        <div class="mc-field-group">
+          <label for="mce-LNAME">Evento <span class="asterisk">*</span></label>
+          <div class="field-wrap">
+            <input type="text" name="LNAME" class="required text" id="mce-LNAME" placeholder="¿A qué evento vienes?" required>
+          </div>
+        </div>
+
+        <div class="mc-field-group">
+          <label for="mce-PHONE">Teléfono <span class="asterisk">*</span></label>
+          <div class="field-wrap">
+            <input type="tel" name="PHONE" class="REQ_CSS" id="mce-PHONE" autocomplete="tel" inputmode="tel" placeholder="+57 300 000 0000">
+          </div>
+        </div>
+
+        <div hidden>
+          <input type="hidden" name="tags" value="28392,27455">
+        </div>
+
+        <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none;"></div>
+          <div class="response" id="mce-success-response" style="display:none;"></div>
+        </div>
+
+        <!-- honeypot anti-bot field required by Mailchimp -->
+        <div aria-hidden="true" style="position:absolute; left:-5000px;">
+          <input type="text" name="b_84f2c4798081c56bcbc35077f_4c7c4367e0" tabindex="-1" value="">
+        </div>
+
+        <div class="clear">
+          <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Enviar">
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-inner">
+      <div class="footer-tagline">
+        <svg viewBox="0 0 69 67" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M14.7259 60.2991L14.0311 61L13.3118 60.3112L7.55801 54.8976L6.83879 54.2209L7.53365 53.52L22.4424 38.4875H0.999615H0V37.5208V29.7145V28.7478H0.999615H22.0279L6.86316 14.4645L6.14393 13.7758L6.83879 13.0749L12.4098 7.47999L13.1046 6.77912L13.8239 7.45582L29.4884 22.2225V0.978804V0H30.488H38.4971H39.4967V0.978804V21.5216L54.1129 6.7912L54.8077 6.09033L55.5269 6.76704L61.2808 12.1927L62 12.8695L61.3051 13.5703L14.7259 60.2991Z" fill="white"/>
+          <path d="M68.0013 28H34.9337C32.2141 28 30 30.2144 30 32.937V67H39.8793V37.874H69V28H68.0133H68.0013Z" fill="#08C486"/>
+        </svg>
+        <p>Our Different Path, Recognized by the Industry.</p>
+      </div>
+
+      <div class="footer-press">
+        <a href="https://www.elespectador.com/economia/emprendimiento-y-liderazgo/crearon-una-firma-de-consultoria-disenada-para-emprendimientos-en-la-era-digital/" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/11/Logo-EL-ESPECTADOR.svg" alt="Logo El Espectador" width="310" height="132" loading="lazy">
+        </a>
+        <a href="https://www.larepublica.co/especiales/40-emprendedores-menores-de-40/asi-se-solucionan-necesidades-desde-el-emprendimiento-3680384" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/11/Logo-LA-REPUBLICA.svg" alt="Logo La República" width="310" height="132" loading="lazy">
+        </a>
+        <a href="https://www.leadersleague.com/en/firm/legalnova/colombia/business-law" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/10/Logo-ranked-firm-2025.png" alt="Logo Ranked Firm 2025" width="310" height="132" loading="lazy">
+        </a>
+        <a href="https://www.redlenguajeclarocolombia.com/quienes-somos" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/10/Logo-red-de-lenguaje-claro.png" alt="Logo Red de Lenguaje Claro" width="310" height="132" loading="lazy">
+        </a>
+        <a href="https://www.colfuturo.org/noticias-de-colfuturo/daniel-acosta-y-el-poder-de-las-ideas-innovadoras" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/11/Logo-UNIANDINOS.svg" alt="Logo Uniandinos" width="310" height="132" loading="lazy">
+        </a>
+        <a href="https://www.colfuturo.org/noticias-de-colfuturo/daniel-acosta-y-el-poder-de-las-ideas-innovadoras" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/11/Logo-COLFUTURO.svg" alt="Logo Colfuturo" width="310" height="132" loading="lazy">
+        </a>
+        <a href="https://www.usergioarboleda.edu.co/noticias/inteligencia-artificial-un-motor-de-la-transformacion-digital/" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/10/Diseno-sin-titulo-1.png" alt="LegalTech Top 32" width="310" height="132" loading="lazy">
+        </a>
+        <a href="https://gofest.com.co/conferencistas/fabian-andres-acosta/" target="_blank" rel="noopener">
+          <img src="https://legalnova.co/wp-content/uploads/2025/11/Logo-Gofest.svg" alt="Logo Gofest" width="310" height="132" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-main">
+    <div class="footer-inner">
+      <div class="footer-col footer-contact">
+        <p><a href="https://maps.app.goo.gl/c2zJPmBrTsbmT8gn6" target="_blank" rel="noopener">Calle 97a #9-45, of. 403. Ed Strategic 97.<br>Bogotá DC., Colombia</a></p>
+        <p><a href="tel:+576016964460">(+601) 696 44 60</a> – <a href="https://api.whatsapp.com/send?phone=17865981548" target="_blank" rel="noopener">(+57) 311 7101 017</a></p>
+        <p><a href="https://www.google.com/maps/place/14331+SW+120th+St+%23101,+Miami,+FL+33186" target="_blank" rel="noopener">14331 SW 120 ST, Suite 101,<br>Miami, Florida, US, 33186</a></p>
+        <p><a href="mailto:info@legalnova.co">info@legalnova.co</a></p>
+
+        <ul class="footer-social">
+          <li>
+            <a href="https://co.linkedin.com/company/legalnova" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/legal_nova/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/channel/UCKScvcd6NfTLBRna28acyGQ" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/legalnovaa/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.tiktok.com/@legalnova" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>360 Services</h5>
+        <a href="https://legalnova.co/corporate/">For Corporates &amp; FOs</a>
+        <a href="https://legalnova.co/startups/">For Startups</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>Signature Services</h5>
+        <a href="https://legalnova.co/tokenizacion/">Tokenization</a>
+        <a href="https://legalnova.co/internacionalizacion/">Internationalization</a>
+        <a href="https://legalnova.co/legal-design/">Legal Design</a>
+        <a href="https://legalnova.co/memberships/">Memberships</a>
+      </div>
+
+      <div class="footer-col">
+        <h5>legalnova*</h5>
+        <a href="https://legalnova.co/about-us/">About us</a>
+        <a href="https://legalnova.co/ai-nover/">Learning hub</a>
+        <a href="https://quarki.co/">Quark-i</a>
+        <a href="https://recu.com.co/" target="_blank" rel="noopener">Recu</a>
+        <a href="https://checkout.wompi.co/l/VPOS_eemzke" target="_blank" rel="noopener">Payments</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-inner">
+      <p>© 2025 <a href="https://legalnova.co/"><strong>legalnova*</strong></a> | Todos los derechos reservados</p>
+      <p><a href="https://legalnova.co/data-processing-policy/">Privacy Policy</a> | <a href="https://legalnova.co/terms-and-conditions/">Terms of Service</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menú hamburguesa: navegación entre "Leads Eventos" y "Leads Redes Sociales".
+  (function(){
+    var burger = document.getElementById('burger');
+    var nav = document.getElementById('mainNav');
+    if(!burger || !nav) return;
+    burger.addEventListener('click', function(){
+      var open = nav.classList.toggle('mobile-open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    });
+  })();
+
+  // Native HTML5 "required" validation is used instead of Mailchimp's
+  // jQuery-based mc-validate.js (dropped — avoids pulling in jQuery
+  // just for pre-submit validation that the browser already does).
+  // The form still posts straight to Mailchimp's list-manage endpoint.
+</script>
+
+</body>
+</html>
